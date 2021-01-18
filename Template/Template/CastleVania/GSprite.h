@@ -1,55 +1,44 @@
-﻿#ifndef CSPRITE_H
-#define CSPRITE_H
-
-#include <d3d9.h>
+﻿#pragma once
+#include <Windows.h>
 #include <d3dx9.h>
+#include <unordered_map>
+#include "Utils.h"
+#include "Game.h"
+#include <iostream>
 
-#include "GTexture.h"
+using namespace std;
 
-class GSprite {
-public: 
-	GTexture* _texture;
+class GSprite
+{
+	int id;		
 
-	int _start;		//chạy từ frame đầu tiên (chỉ số)
-	int _end;		//chạy đến frame cuối cùng (chỉ số)
-	int _index;		//frame hiện tại
-	int _timeAni;	//thời gian chuyển frame
-	int _timeLocal;	//biến hỗ trợ đếm thời gian
+	int left;
+	int top;
+	int right;
+	int bottom;
 
-	GSprite();
-	GSprite(const GSprite &sprite);
-	GSprite(GTexture* texture, int timeAnimation);
-	GSprite(GTexture* texture, int start, int end, int timeAnimation);
+	LPDIRECT3DTEXTURE9 texture;
+public:
+	GSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
-	//sang frame tiếp theo
-	void Next();
-
-	//trở về frame đầu tiên
-	void Reset();
-
-	//chọn 1 frame nào đó
-	void SelectIndex(int index);
-
-	//update animation
-	void Update(int ellapseTime);
-
-	// Render current sprite at location (X,Y) at the target surface
-	void Draw(int x, int y);
-	
-	//Render with scale (-1, 1)
-	void DrawFlipX(int x, int y);
-
-	//render with scale (1, -1)
-	void DrawFlipY(int x, int y);
-
-	//Render Rect of texture at (x,y)
-	void DrawRect(int X, int Y, RECT SrcRect);
-
-	void DrawIndex(int index, int X, int Y);
-
-	int GetIndex();
-
-	~GSprite();
+	void Draw(float x, float y, int alpha = 255, bool flipX = false, int rotate = 0, int modifyR = 255, int modifyG = 255, int modifyB = 255);
 };
 
-#endif
+typedef GSprite* LPSPRITE;
+
+class GSpriteLib
+{
+	static GSpriteLib* __instance;
+
+	unordered_map<int, LPSPRITE> sprites;
+
+public:
+	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	LPSPRITE Get(int id);
+	void GSpriteLib::Clear();
+
+	static GSpriteLib* GetInstance();
+};
+
+
+

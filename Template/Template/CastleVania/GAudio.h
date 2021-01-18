@@ -10,7 +10,7 @@ public:
 	GSoundManager *dsound;
 
 	int Init_DirectSound(HWND);
-	GSound *LoadSound(char *);
+	GSound *LoadSound(LPTSTR fileName);
 	void PlaySound(GSound *);
 	void LoopSound(GSound *);
 	void StopSound(GSound *);

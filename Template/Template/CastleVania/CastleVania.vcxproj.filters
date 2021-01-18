@@ -23,6 +23,15 @@
     <Filter Include="FrameWork\Camera">
       <UniqueIdentifier>{20a531ec-1814-4bef-924c-4cb850fc992a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\Enemies">
+      <UniqueIdentifier>{fbbb0199-54b8-47af-9238-279a2fa6ef85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\GameObjects">
+      <UniqueIdentifier>{ffbb94a7-7add-483a-8b19-fb08d1044d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameScene">
+      <UniqueIdentifier>{b81b9c89-8e78-4ed9-abd3-e0224bea4663}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -55,6 +64,18 @@
     <ClCompile Include="GCamera.cpp">
       <Filter>FrameWork\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>FrameWork\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects.cpp">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -86,6 +107,18 @@
     </ClInclude>
     <ClInclude Include="GCamera.h">
       <Filter>FrameWork\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>FrameWork\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects.h">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

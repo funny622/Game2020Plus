@@ -29,7 +29,7 @@ int GAudio::Init_DirectSound(HWND hwnd)
     return 1;
 }
 
-GSound* GAudio::LoadSound(char *filename)
+GSound* GAudio::LoadSound(LPTSTR filename)
 {
     HRESULT result;
 

@@ -1,80 +1,55 @@
-#include "GTexture.h"
+#include "GSprite.h"
 
-GTexture::GTexture(char* _fileName, int cols, int rows, int count)
+GSprite::GSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
-	Cols = cols;
-	Rows = rows;
-	Count = count;
-	FileName = _fileName;
-	this->Load();
+	this->id = id;
+	this->left = left;
+	this->top = top;
+	this->right = right;
+	this->bottom = bottom;
+	this->texture = tex;
 }
 
-GTexture::GTexture( const GTexture &ctexture)
-{		
-	this->FileName=ctexture.FileName;
-	this->Size=ctexture.Size;
-	this->Cols=ctexture.Cols;
-	this->Rows=ctexture.Rows;
-	this->Count=ctexture.Count;
-	this->FrameHeight=ctexture.FrameHeight;
-	this->FrameWidth=ctexture.FrameWidth;
-	this->Load();
+GSpriteLib* GSpriteLib::__instance = nullptr;
+
+GSpriteLib* GSpriteLib::GetInstance()
+{
+	if (__instance == nullptr) __instance = new GSpriteLib();
+	return __instance;
 }
 
-GTexture::~GTexture()
+void GSprite::Draw(float x, float y, int alpha, bool flipX, int rotate, int modifyR, int modifyG, int modifyB)
 {
-	if(this->Texture != NULL)
-		this->Texture->Release();
+	CGame* game = CGame::GetInstance();
+	game->Draw(x, y, texture, left, top, right, bottom, alpha, flipX, rotate, 0, 0, modifyR, modifyG, modifyB);
 }
 
-void GTexture::Draw(int x, int y) 
+void GSpriteLib::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
-	D3DXVECTOR3 position((float)x, (float)y, 0);
-	G_SpriteHandler->Draw( Texture, &Size, NULL, &position, 0xFFFFFFFF );
+	LPSPRITE s = new GSprite(id, left, top, right, bottom, tex);
+	sprites[id] = s;
+
+	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d \n", id, left, top, right, bottom);
 }
 
-void GTexture::Load()
+LPSPRITE GSpriteLib::Get(int id)
 {
-	D3DXIMAGE_INFO info; 
-	HRESULT result;
+	return sprites[id];
+}
 
-	result = D3DXGetImageInfoFromFile(FileName, &info);
-
-	RECT s = {0, 0, info.Width, info.Height};
-	this->Size = s;
-
-	FrameWidth = info.Width / Cols;
-	FrameHeight = info.Height / Rows;
-
-	if (result != D3D_OK)
+/*
+	Clear all loaded textures
+*/
+void GSpriteLib::Clear()
+{
+	for (auto x : sprites)
 	{
-		GLMessage("Can not load texture");
-		GLTrace("[texture.h] Failed to get information from image file [%s]", FileName);
-		OutputDebugString(FileName);
-		return;
+		LPSPRITE s = x.second;
+		delete s;
 	}
 
-	result = D3DXCreateTextureFromFileEx(
-		G_Device,
-		FileName,
-		info.Width,
-		info.Height,
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255), //color
-		&info,
-		NULL,
-		&Texture
-		);
-
-	if (result != D3D_OK) 
-	{
-		GLMessage("Can not load texture");
-		GLTrace("[texture.h] Failed to create texture from file '%s'", FileName);
-		return;
-	}
+	sprites.clear();
 }
+
+
+

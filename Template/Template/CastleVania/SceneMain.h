@@ -1,21 +1,26 @@
-#ifndef _SCENEMAIN_H_
-#define _SCENEMAIN_H_
+#pragma once
 
-#include "Game.h"
+#include <d3dx9.h>
+#include <map>
+#include <string>
+#include "Utils.h"
 
-class SceneMain: public CGame
+using namespace std;
+
+class SceneMain
 {
-public: 	
-	SceneMain(int _nCmdShow);
-	~SceneMain();	
+protected:
+	int id;
+	LPCWSTR sceneFilePath;
 
-protected:	
+public:
+	SceneMain() {};
+	SceneMain(int id, LPCWSTR filePath);
 
-	virtual void RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int t);
-	virtual void ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta);
-	virtual void LoadResources(LPDIRECT3DDEVICE9 d3ddv);
-
-	virtual void OnKeyDown(int KeyCode);
+	virtual void Load() = 0;
+	virtual void Unload() = 0;
+	virtual void Update(DWORD dt) = 0;
+	virtual void Render() = 0;
 };
 
-#endif
+typedef SceneMain* LPSCENE;

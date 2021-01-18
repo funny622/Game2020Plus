@@ -6,6 +6,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
+#include <string>
 
 //
 //GLOBAL CONSTANT
@@ -79,9 +80,9 @@ void GLTrace(char* format, ...)
 
 void GLMessage(char* text)
 {
-	MessageBox(G_hWnd, text, "Sample TH", MB_OK);
+	//MessageBox(G_hWnd, text, L"Sample TH", MB_OK);
 }
 
 void GLTitle(char* text){
-	SetWindowText(G_hWnd, text);
+	//SetWindowText(G_hWnd, text);
 }

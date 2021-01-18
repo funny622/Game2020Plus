@@ -1,289 +1,295 @@
-﻿#include <windows.h>
-#include "Game.h"
-#include <d3d9.h>
+﻿#include "Game.h"
+#include "GameScene.h"
+#include "Utils.h"
+#include <math.h> 
+#include <time.h>
+#include <vector>
 
-CGame::CGame(int _nnCmdShow)
+//#include "SoundManager.h"
+
+//#define SCENE_SIDEVIEW_ID 2
+
+CGame* CGame::__instance = nullptr;
+
+int CGame::state = 1;
+D3DCOLOR CGame::BackgroundColor = D3DCOLOR_XRGB(255, 255, 255);
+
+
+/*
+	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
+	rendering 2D images
+	- hInst: Application instance handle
+	- hWnd: Application window handle
+*/
+void CGame::Init(HWND hWnd)
 {
-	nCmdShow = _nnCmdShow;
-}
+	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-int CGame::InitWindow(int nCmdShow) 
-{
-	WNDCLASSEX wc;
-	wc.cbSize = sizeof(WNDCLASSEX);
+	this->hWnd = hWnd;
 
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.hInstance = G_hInstance;
+	D3DPRESENT_PARAMETERS d3dpp;
 
-	wc.lpfnWndProc = (WNDPROC)WinProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hIcon = NULL;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = NULL;
-	wc.lpszClassName = G_GameName;
-	wc.hIconSm = NULL;
+	ZeroMemory(&d3dpp, sizeof(d3dpp));
 
-	RegisterClassEx(&wc);
-
-	int windowStyle;
-	if(G_IsFullScreen) {
-		windowStyle = WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP; //dạng fullscreen
-	} else {
-		windowStyle = WS_OVERLAPPEDWINDOW; //dạng cửa sổ
-	}
-
-	G_hWnd = 
-		CreateWindow(
-		G_GameName,
-		G_GameName,
-		windowStyle,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT, 
-		G_ScreenWidth,
-		G_ScreenHeight,
-		NULL,
-		NULL,
-		G_hInstance,
-		NULL);
-
-	if (!G_hWnd) { 
-		DWORD ErrCode = GetLastError();
-		return FALSE;
-	}
-
-	ShowWindow(G_hWnd, nCmdShow);
-	UpdateWindow(G_hWnd);
-}
-
-
-int CGame::InitDirectX() 
-{
-	G_DirectX = Direct3DCreate9(D3D_SDK_VERSION);
-	D3DPRESENT_PARAMETERS d3dpp; 
-
-	ZeroMemory( &d3dpp, sizeof(d3dpp) );
-
-	if(G_IsFullScreen) {
-		d3dpp.Windowed   = FALSE;
-	} else {
-		d3dpp.Windowed   = TRUE;
-	}
-	
+	d3dpp.Windowed = TRUE;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 	d3dpp.BackBufferCount = 1;
-	d3dpp.BackBufferHeight = G_ScreenHeight;
-	d3dpp.BackBufferWidth = G_ScreenWidth;
 
-	G_DirectX->CreateDevice(
+	RECT r;
+	GetClientRect(hWnd, &r);	// retrieve Window width & height 
+
+	d3dpp.BackBufferHeight = r.bottom + 1;
+	d3dpp.BackBufferWidth = r.right + 1;
+
+	screen_height = r.bottom + 1;
+	screen_width = r.right + 1;
+
+	d3d->CreateDevice(
 		D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
-		G_hWnd,
+		hWnd,
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
-		&G_Device);
+		&d3ddv);
 
-	if (G_Device==NULL) 
+	if (d3ddv == nullptr)
 	{
-		return 0;
+		OutputDebugString(L"[ERROR] CreateDevice failed\n");
+		return;
 	}
 
-	//backbuffer
-	G_Device->GetBackBuffer(0,0,D3DBACKBUFFER_TYPE_MONO,&G_BackBuffer);
+	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 
-	//sprite handler
-	D3DXCreateSprite(G_Device, &G_SpriteHandler);
+	// Initialize sprite helper from Direct3DX helper library
+	D3DXCreateSprite(d3ddv, &spriteHandler);
 
-	return 1;
+	srand(time(NULL));
+
+	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-void CGame::InitKeyboard()
+HWND CGame::getCurrentHWND()
 {
-    HRESULT 
-		hr = DirectInput8Create
-			( 
-				GetModuleHandle(NULL), 
-				DIRECTINPUT_VERSION, 
-				IID_IDirectInput8, (VOID**)&G_DirectInput, NULL 
-			);
-
-	// TO-DO: put in exception handling
-	if (FAILED(hr)==true)
-		return;
-	
-	hr = G_DirectInput->CreateDevice(GUID_SysKeyboard, &G_KeyBoard, NULL); 
-	
-	// TO-DO: put in exception handling
-	if (FAILED(hr)==true) 
-		return;
-
-	hr = G_KeyBoard->SetDataFormat(&c_dfDIKeyboard);
-	if (FAILED(hr)==true) 
-		return;
-
-	hr = G_KeyBoard->SetCooperativeLevel(G_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE); 
-	if (FAILED(hr)==true) 
-		return;
-
-    DIPROPDWORD dipdw;
-
-    dipdw.diph.dwSize       = sizeof(DIPROPDWORD);
-    dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-    dipdw.diph.dwObj        = 0;
-    dipdw.diph.dwHow        = DIPH_DEVICE;
-    dipdw.dwData            = GL_KEY_BUFFER_SIZE;
-
-    hr = G_KeyBoard->SetProperty( DIPROP_BUFFERSIZE, &dipdw.diph );
-	if (FAILED(hr)==true) 
-		return;
-
-	hr = G_KeyBoard->Acquire(); 
-	if (FAILED(hr)==true) 
-		return;
+	return hWnd;
 }
 
-void CGame::InitGame()
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, bool flipX, int rotate, float offset_x, float offset_y, int modifyR, int modifyG, int modifyB)
 {
-	InitWindow(nCmdShow);
-	InitDirectX();
-	InitKeyboard();
-	LoadResources(G_Device);
-}
-
-void CGame::ProcessKeyBoard()
-{
-		HRESULT hr = G_KeyBoard->GetDeviceState(sizeof(_KeyStates), (LPVOID)&_KeyStates);
-		if(hr != S_OK)
-		{
-			hr = G_KeyBoard->Acquire();
-			G_KeyBoard->GetDeviceState(sizeof(_KeyStates), (LPVOID)&_KeyStates);
-		}
-		// Collect all key states first
-		G_KeyBoard->GetDeviceState( sizeof(_KeyStates), _KeyStates);
-
-		if (IsKeyDown(DIK_ESCAPE)) 
-		{
-			PostMessage(G_hWnd,WM_QUIT,0,0);
-		}
-
-		// Collect all buffered events
-		DWORD dwElements = GL_KEY_BUFFER_SIZE;
-		hr = G_KeyBoard->GetDeviceData( sizeof(DIDEVICEOBJECTDATA), _KeyEvents, &dwElements, 0 );
-
-		// Scan through all data, check if the key is pressed or released
-		for( DWORD i = 0; i < dwElements; i++ ) 
-		{
-			int KeyCode = _KeyEvents[i].dwOfs;
-			int KeyState = _KeyEvents[i].dwData;
-			if ( (KeyState & 0x80) > 0)
-				OnKeyDown(KeyCode);
-			else 
-				OnKeyUp(KeyCode);
-		}
-}
-
-void CGame::OnKeyUp(int KeyCode) { }
-void CGame::OnKeyDown(int KeyCode) { }
-
-void GameDraw(int deltaTime)
-{
-	if (G_Device->BeginScene()) 
-	{
-		// Clear back buffer with BLACK
-		G_Device->ColorFill(G_BackBuffer,NULL,D3DCOLOR_XRGB(0,0,0));
-		G_SpriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		//----- start drawing
-
-
-		//---- end drawing
-		G_SpriteHandler->End();
-		G_Device->EndScene();
-	}
-
-	G_Device->Present(NULL,NULL,NULL,NULL);
-}
-
-// Main game message loop
-void CGame::GameRun()
-{
-	MSG msg;
-	int done = 0;
-	DWORD frame_start = GetTickCount();;
-	
-	DWORD tick_per_frame = 100 / G_FrameRate;
-
-	while (!done) 
-	{
-		if (PeekMessage(&msg,NULL,0,0,PM_REMOVE))
-		{
-			if (msg.message==WM_QUIT) done=1;
-
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);			
-		}
-
-		DWORD now = GetTickCount();
-		_DeltaTime = now - frame_start; 
-		if (_DeltaTime >= tick_per_frame)
-		{
-			frame_start = now;
-			RenderFrame();
-		}
-
-		ProcessKeyBoard();
-
-		ProcessInput(G_Device, _DeltaTime);
-	}
-}
-
-void CGame::RenderFrame()
-{
-	if (G_Device->BeginScene()) 
-	{
-		RenderFrame(G_Device, _DeltaTime);
-		G_Device->EndScene();
-	}
-	G_Device->Present(NULL,NULL,NULL,NULL);
-}
-
-void CGame::RenderFrame(LPDIRECT3DDEVICE9 d3ddv, int Delta) 
-{
-	d3ddv->ColorFill(G_BackBuffer,NULL,D3DCOLOR_XRGB(0,0,0));
-}
-void CGame::LoadResources(LPDIRECT3DDEVICE9 d3ddv) { }
-
-void CGame::ProcessInput(LPDIRECT3DDEVICE9 d3ddv, int Delta) 
-{
-	/*HRESULT hr = G_KeyBoard->GetDeviceState(sizeof(_KeyStates), (LPVOID)&_KeyStates);
-		if(hr != S_OK)
-		{
-			hr = G_KeyBoard->Acquire();
-			G_KeyBoard->GetDeviceState(sizeof(_KeyStates), (LPVOID)&_KeyStates);
-		}*/
+	int width = round(right - left);
+	int height = round(bottom - top);
+	int scale = 1;
+	D3DXVECTOR2 center = D3DXVECTOR2((int)(flipX ? (width / 2) * scale - width * scale : (width / 2) * scale), (int)((height / 2) * scale));
+	D3DXVECTOR2 translate = D3DXVECTOR2((int)(flipX ? x + width * scale - cam_x - offset_x : x - cam_x - offset_x), (int)(y - cam_y - offset_y));
+	D3DXVECTOR2 scaling = D3DXVECTOR2((int)((flipX) ? -scale : scale), scale);
+	float angle = rotate * 1.5707963268;
+	RECT r;
+	r.left = left;
+	r.top = top;
+	r.right = right;
+	r.bottom = bottom;
+	D3DXMATRIX matrix;
+	D3DXMatrixTransformation2D(
+		&matrix,
+		NULL,
+		0.0f,
+		&scaling,
+		&center,
+		angle,
+		&translate
+	);
+	spriteHandler->SetTransform(&matrix);
+	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, modifyR, modifyG, modifyB));
 }
 
 int CGame::IsKeyDown(int KeyCode)
 {
-	return (_KeyStates[KeyCode] & 0x80) > 0;
+	return (keyStates[KeyCode] & 0x80) > 0;
 }
 
-void CGame::GameEnd()
+void CGame::InitKeyboard()
 {
-	if (G_Device!=NULL) G_Device->Release();
-	if (G_DirectX!=NULL) G_DirectX->Release();
-}
+	HRESULT
+		hr = DirectInput8Create
+		(
+			(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
+			DIRECTINPUT_VERSION,
+			IID_IDirectInput8, (VOID**)&di, nullptr
+		);
 
-LRESULT CALLBACK CGame::WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message) 
+	if (hr != DI_OK)
 	{
-	case WM_DESTROY: 
-		PostQuitMessage(0);
-		break;
-	default: 
-		return DefWindowProc(hWnd, message, wParam,lParam);
+		return;
 	}
-	return 0;
+
+	hr = di->CreateDevice(GUID_SysKeyboard, &didv, nullptr);
+
+	if (hr != DI_OK)
+	{
+		return;
+	}
+
+	hr = didv->SetDataFormat(&c_dfDIKeyboard);
+
+	hr = didv->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+
+	DIPROPDWORD dipdw;
+
+	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
+	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+	dipdw.diph.dwObj = 0;
+	dipdw.diph.dwHow = DIPH_DEVICE;
+	dipdw.dwData = KEYBOARD_BUFFER_SIZE;
+
+	hr = didv->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
+
+	hr = didv->Acquire();
+	if (hr != DI_OK)
+	{
+		return;
+	}
+}
+
+void CGame::ProcessKeyboard()
+{
+	HRESULT hr;
+
+	// Collect all key states first
+	hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
+	if (FAILED(hr))
+	{
+		// If the keyboard lost focus or was not acquired then try to get control back.
+		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+		{
+			HRESULT h = didv->Acquire();
+			if (h == DI_OK)
+			{
+			}
+			else return;
+		}
+		else
+		{
+			//DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
+			return;
+		}
+	}
+
+	// Collect all buffered events
+	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
+	hr = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
+	if (FAILED(hr))
+	{
+		//DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
+		return;
+	}
+
+
+	// Scan through all buffered events, check if the key is pressed or released
+	for (DWORD i = 0; i < dwElements; i++)
+	{
+		int KeyCode = keyEvents[i].dwOfs;
+		int KeyState = keyEvents[i].dwData;
+	}
+}
+
+CGame::~CGame()
+{
+	if (spriteHandler != nullptr) spriteHandler->Release();
+	if (backBuffer != nullptr) backBuffer->Release();
+	if (d3ddv != nullptr) d3ddv->Release();
+	if (d3d != nullptr) d3d->Release();
+}
+
+GameObject* CGame::GetCurrentPlayer()
+{
+	LPGAMESCENE currentGameScene = dynamic_cast<LPGAMESCENE>(scenes[current_scene]);
+
+	if (currentGameScene)
+		return currentGameScene->GetPlayer();
+
+	return nullptr;
+}
+
+void CGame::SetState(int newState)
+{
+	state = newState;
+}
+
+CGame* CGame::GetInstance()
+{
+	if (__instance == nullptr) __instance = new CGame();
+	return __instance;
+}
+
+#define MAX_GAME_LINE 1024
+
+
+#define GAME_FILE_SECTION_UNKNOWN -1
+#define GAME_FILE_SECTION_SETTINGS 1
+#define GAME_FILE_SECTION_SCENES 2
+
+void CGame::_ParseSection_SETTINGS(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return;
+	if (tokens[0] == "start")
+		current_scene = atoi(tokens[1].c_str());
+}
+
+void CGame::_ParseSection_SCENES(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 2) return;
+	int id = atoi(tokens[0].c_str());
+	LPCWSTR path = ToLPCWSTR(tokens[1]);
+
+	LPSCENE scene = NULL;
+
+	scenes[id] = scene;
+}
+
+/*
+	Load game campaign file and load/initiate first scene
+*/
+void CGame::Load(LPCWSTR gameFile)
+{
+	ifstream f;
+	f.open(gameFile);
+	char str[MAX_GAME_LINE];
+
+	// current resource section flag
+	int section = GAME_FILE_SECTION_UNKNOWN;
+
+	while (f.getline(str, MAX_GAME_LINE))
+	{
+		string line(str);
+
+		if (line[0] == '#') continue;	// skip comment lines	
+
+		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
+		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
+
+		//
+		// data section
+		//
+		switch (section)
+		{
+		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+		}
+	}
+	f.close();
+
+	SwitchScene(current_scene);
+}
+
+void CGame::SwitchScene(int scene_id)
+{
+	scenes[current_scene]->Unload();
+
+	current_scene = scene_id;
+	LPSCENE s = scenes[scene_id];
+	s->Load();
 }

@@ -1,30 +1,30 @@
-﻿#ifndef CTEXTURE_H
-#define CTEXTURE_H
+﻿#pragma once
+#include <unordered_map>
+#include <d3dx9.h>
+#include <Windows.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "Global.h"
+#include "Game.h"
+#include "Utils.h"
+#include "GTexture.h"
 
-class GTexture 
+using namespace std;
+
+/*
+	Manage texture database
+*/
+class GTexture
 {
+	static GTexture* __instance;
+
+	unordered_map<int, LPDIRECT3DTEXTURE9> textures;
+
 public:
-	char* FileName; //đường dẫn tới file ảnh
-	RECT Size;		//độ phân giải ảnh
-	LPDIRECT3DTEXTURE9 Texture;
-	int Cols;		//số cột frame
-	int Rows;		//số hàng frame
-	int Count;		//tổng số frame
-	int FrameWidth;		//width of 1 frame
-	int FrameHeight;	//height of 1 frame
+	GTexture();
+	void Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor);
+	LPDIRECT3DTEXTURE9 Get(unsigned int i);
 
-	GTexture( const GTexture &ctexture);
-	GTexture(char* _fileName, int cols = 1, int rows = 1, int count = 1);
-	~GTexture();
-	//vẽ texture tại vị trí (x, y) trên màn hình
-	void Draw(int x, int y);
-
-protected:
-	void Load();
+	void Clear();
+	static GTexture* GetInstance();
 };
-
-#endif
