@@ -1,54 +1,75 @@
-#include "GSprite.h"
+#include "GTexture.h"
 
-GSprite::GSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+GTexture* GTexture::__instance = nullptr;
+
+GTexture::GTexture()
 {
-	this->id = id;
-	this->left = left;
-	this->top = top;
-	this->right = right;
-	this->bottom = bottom;
-	this->texture = tex;
+
 }
 
-GSpriteLib* GSpriteLib::__instance = nullptr;
-
-GSpriteLib* GSpriteLib::GetInstance()
+GTexture* GTexture::GetInstance()
 {
-	if (__instance == nullptr) __instance = new GSpriteLib();
+	if (__instance == nullptr) __instance = new GTexture();
 	return __instance;
 }
 
-void GSprite::Draw(float x, float y, int alpha, bool flipX, int rotate, int modifyR, int modifyG, int modifyB)
+void GTexture::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 {
-	CGame* game = CGame::GetInstance();
-	game->Draw(x, y, texture, left, top, right, bottom, alpha, flipX, rotate, 0, 0, modifyR, modifyG, modifyB);
+	D3DXIMAGE_INFO info;
+	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
+	if (result != D3D_OK)
+	{
+		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
+		return;
+	}
+
+	LPDIRECT3DDEVICE9 d3ddv = CGame::GetInstance()->GetDirect3DDevice();
+	LPDIRECT3DTEXTURE9 texture;
+
+	result = D3DXCreateTextureFromFileEx(
+		d3ddv,								// Pointer to Direct3D device object
+		filePath,							// Path to the image to load
+		info.Width,							// Texture width
+		info.Height,						// Texture height
+		1,
+		D3DUSAGE_DYNAMIC,
+		D3DFMT_UNKNOWN,
+		D3DPOOL_DEFAULT,
+		D3DX_DEFAULT,
+		D3DX_DEFAULT,
+		transparentColor,
+		&info,
+		nullptr,
+		&texture);								// Created texture pointer
+
+	if (result != D3D_OK)
+	{
+		OutputDebugString(L"[ERROR] CreateTextureFromFile failed\n");
+		return;
+	}
+
+	textures[id] = texture;
+
+	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s\n", id, filePath);
 }
 
-void GSpriteLib::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+LPDIRECT3DTEXTURE9 GTexture::Get(unsigned int id)
 {
-	LPSPRITE s = new GSprite(id, left, top, right, bottom, tex);
-	sprites[id] = s;
-
-	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d \n", id, left, top, right, bottom);
-}
-
-LPSPRITE GSpriteLib::Get(int id)
-{
-	return sprites[id];
+	return textures[id];
 }
 
 /*
 	Clear all loaded textures
 */
-void GSpriteLib::Clear()
+void GTexture::Clear()
 {
-	for (auto x : sprites)
+	for (auto x : textures)
 	{
-		LPSPRITE s = x.second;
-		delete s;
+		LPDIRECT3DTEXTURE9 tex = x.second;
+		if (tex != nullptr) tex->Release();
 	}
 
-	sprites.clear();
+	textures.clear();
 }
 
 

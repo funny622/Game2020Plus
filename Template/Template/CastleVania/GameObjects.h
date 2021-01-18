@@ -30,7 +30,7 @@ public:
 	int GetState() { return this->state; }
 
 	void RenderBoundingBox();
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 
 	void Update(DWORD dt, vector<GameObject*>* coObjects);
 
