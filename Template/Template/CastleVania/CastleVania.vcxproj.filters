@@ -76,6 +76,16 @@
     <ClCompile Include="SceneMain.cpp">
       <Filter>Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TileArea.cpp">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomKeyEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -120,5 +130,18 @@
     <ClInclude Include="SceneMain.h">
       <Filter>Game\GameScene</Filter>
     </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TileArea.h">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SideviewConst.h" />
+    <ClInclude Include="CustomKeyEvent.h" />
+    <ClInclude Include="OverheadConst.h" />
+    <ClInclude Include="ZIndexConst.h" />
   </ItemGroup>
 </Project>

@@ -293,3 +293,8 @@ void CGame::SwitchScene(int scene_id)
 	LPSCENE s = scenes[scene_id];
 	s->Load();
 }
+
+//void CGame::AddGameEvent(LPGAME_EVENT gameEvent)
+//{
+//	gameEvents.push_back(gameEvent);
+//}

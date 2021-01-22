@@ -88,22 +88,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="CustomKeyEvent.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameObjects.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GAudio.cpp" />
     <ClCompile Include="GCamera.cpp" />
     <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GSprite.cpp" />
     <ClCompile Include="GTexture.cpp" />
+    <ClCompile Include="TileArea.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="CustomKeyEvent.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameObjects.h" />
     <ClInclude Include="GameScene.h" />
@@ -111,12 +116,18 @@
     <ClInclude Include="GCamera.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="OverheadConst.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GSprite.h" />
     <ClInclude Include="GTexture.h" />
+    <ClInclude Include="SideviewConst.h" />
+    <ClInclude Include="TileArea.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="ZIndexConst.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

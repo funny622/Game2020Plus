@@ -18,9 +18,17 @@ protected:
 	float vx, vy;
 	int state = 0;
 public:
+
+	int currentSectionId = 0;
+	int classId = -1;
+	int objectId = -1;
+	int zIndex = ZINDEX_DEFAULT;
+	bool isHiddenByForeground = true;
+	bool isUpdatedWhenOffScreen = false;
+
 	GameObject();
 
-	void SetPositino(float x, float y) { this->x = x, this->y = y; };
+	void SetPosition(float x, float y) { this->x = x, this->y = y; };
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }

@@ -11,6 +11,12 @@
 #include <vector>
 #include <string>
 
+#include "SideviewConst.h"
+#include "OverheadConst.h"
+#include "ZIndexConst.h"
+#include "CustomKeyEvent.h"
+
+
 using namespace std;
 
 class CGameObject;
@@ -23,7 +29,12 @@ wstring ToWSTR(string st);
 
 LPCWSTR ToLPCWSTR(string st);
 
+
+
 int IsKeyDown(int KeyCode);
+
+
+std::vector<CCustomKeyEvent*> NewKeyEvents();
 
 const int SCREEN_EXTEND_OFFSET_DEFAULT = 4;
 bool checkObjInCamera(CGameObject* obj, float extendOffset = SCREEN_EXTEND_OFFSET_DEFAULT);

@@ -8,7 +8,9 @@
 #include <dinput.h>
 
 #include "SceneMain.h"
+#include "CustomKeyEvent.h"
 #include "Utils.h"
+//#include "GameEvent.h"
 #include <iostream>
 #include <fstream>
 
@@ -60,6 +62,8 @@ class CGame
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
+	//static vector<LPGAME_EVENT> gameEvents;
+
 public:
 	//Background Color
 	static D3DCOLOR BackgroundColor;
@@ -93,6 +97,7 @@ public:
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
+	//void CGame::AddGameEvent(LPGAME_EVENT gameEvent);
 
 	static int GetState() { return state; };
 	static void SetState(int newState);

@@ -1,5 +1,0 @@
-﻿  GTexture.cpp
-  C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\TRIEUIT\Documents\GitHub\Game2020Plus\Template\Template\CastleVania\Game.h(15,1): warning C4005: 'DIRECTINPUT_VERSION': macro redefinition
-C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h(42): message : see previous definition of 'DIRECTINPUT_VERSION'
-  CastleVania.vcxproj -> C:\Users\TRIEUIT\Documents\GitHub\Game2020Plus\Template\Template\Debug\CastleVania.exe
