@@ -49,9 +49,6 @@
     <ClCompile Include="dsutil.cpp">
       <Filter>FrameWork\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="GTexture.cpp">
       <Filter>FrameWork</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="SceneMain.cpp">
+      <Filter>Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -92,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="dxutil.h">
       <Filter>FrameWork\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneMain.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="GTexture.h">
       <Filter>FrameWork</Filter>
@@ -118,6 +115,9 @@
       <Filter>FrameWork\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
+      <Filter>Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMain.h">
       <Filter>Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
