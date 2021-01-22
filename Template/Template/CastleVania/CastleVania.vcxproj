@@ -87,9 +87,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatableObject.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="CustomKeyEvent.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObjects.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GAudio.cpp" />
@@ -104,14 +106,21 @@
     <ClCompile Include="GSprite.cpp" />
     <ClCompile Include="GTexture.cpp" />
     <ClCompile Include="TileArea.cpp" />
+    <ClCompile Include="Sophia.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimeTracker.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatableObject.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="CustomKeyEvent.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameEvent.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjects.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GAudio.h" />
     <ClInclude Include="GCamera.h" />
     <ClInclude Include="dsutil.h" />
@@ -126,6 +135,9 @@
     <ClInclude Include="GTexture.h" />
     <ClInclude Include="SideviewConst.h" />
     <ClInclude Include="TileArea.h" />
+    <ClInclude Include="Sophia.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimeTracker.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="ZIndexConst.h" />
   </ItemGroup>

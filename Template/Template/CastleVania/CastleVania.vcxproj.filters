@@ -86,6 +86,21 @@
       <Filter>FrameWork\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="CustomKeyEvent.cpp" />
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeTracker.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Sophia.cpp">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatableObject.cpp">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -143,5 +158,26 @@
     <ClInclude Include="CustomKeyEvent.h" />
     <ClInclude Include="OverheadConst.h" />
     <ClInclude Include="ZIndexConst.h" />
+    <ClInclude Include="GameState.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEvent.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeTracker.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Sophia.h">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatableObject.h">
+      <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
