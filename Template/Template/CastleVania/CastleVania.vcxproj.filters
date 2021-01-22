@@ -85,7 +85,6 @@
     <ClCompile Include="TileArea.cpp">
       <Filter>FrameWork\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="CustomKeyEvent.cpp" />
     <ClCompile Include="GameManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -100,6 +99,9 @@
     </ClCompile>
     <ClCompile Include="AnimatableObject.cpp">
       <Filter>FrameWork\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomKeyEvent.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,10 +156,6 @@
     <ClInclude Include="TileArea.h">
       <Filter>FrameWork\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="SideviewConst.h" />
-    <ClInclude Include="CustomKeyEvent.h" />
-    <ClInclude Include="OverheadConst.h" />
-    <ClInclude Include="ZIndexConst.h" />
     <ClInclude Include="GameState.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -178,6 +176,18 @@
     </ClInclude>
     <ClInclude Include="AnimatableObject.h">
       <Filter>FrameWork\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ZIndexConst.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SideviewConst.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="OverheadConst.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomKeyEvent.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

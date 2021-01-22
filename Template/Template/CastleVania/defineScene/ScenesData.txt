@@ -2,7 +2,7 @@
 start	1
 #scene list
 [SCENES]
-1	IntroScene.txt
-2	SideviewScene.txt
-3	OverheadScene.txt
-4	EndingScene.txt
+1	defineScene/IntroScene.txt
+2	defineScene/SideviewScene.txt
+3	defineScene/OverheadScene.txt
+4	defineScene/EndingScene.txt

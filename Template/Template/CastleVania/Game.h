@@ -72,6 +72,7 @@ public:
 	}
 
 	void InitKeyboard();
+	vector<CCustomKeyEvent*> CustomKeyEvents; // Just like keyEvents, but friendlier to use :)
 	// void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 	void Init(HWND hWnd);
 

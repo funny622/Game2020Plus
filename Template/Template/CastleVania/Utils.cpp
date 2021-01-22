@@ -93,6 +93,12 @@ int IsKeyDown(int KeyCode)
 	return game->IsKeyDown(KeyCode);
 }
 
+vector<CCustomKeyEvent*> NewKeyEvents()
+{
+	auto game = CGame::GetInstance();
+	return game->CustomKeyEvents;
+}
+
 bool checkObjInCamera(CGameObject* obj, float extendOffset)
 {
 	return true;

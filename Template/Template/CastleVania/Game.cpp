@@ -1,5 +1,6 @@
 ﻿#include "Game.h"
 #include "GameScene.h"
+#include "IntroScene.h"
 #include "Utils.h"
 #include <math.h> 
 #include <time.h>
@@ -246,6 +247,13 @@ void CGame::_ParseSection_SCENES(string line)
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
 	LPSCENE scene = NULL;
+
+	//if (id == ID_SCENE_SIDEVIEW || id == ID_SCENE_OVERHEAD)
+	//	scene = new GameScene(id, path);
+
+	if (id == ID_SCENE_INTRO)
+		scene = new CIntroScene(id, path);
+
 
 	scenes[id] = scene;
 }
