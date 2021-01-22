@@ -156,7 +156,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	game->Init(hWnd);
 	game->InitKeyboard();
 
-	game->Load(L"ScenesData.txt");
+	game->Load(L"defineScene/ScenesData.txt");
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH * 2.5, SCREEN_HEIGHT * 2.5, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

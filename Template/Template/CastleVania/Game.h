@@ -53,7 +53,6 @@ class CGame
 	int screen_width;
 	int screen_height;
 
-	// std::map<int, LPSCENE> scenes;
 	std::map<int, LPSCENE> scenes;
 	int current_scene;
 
