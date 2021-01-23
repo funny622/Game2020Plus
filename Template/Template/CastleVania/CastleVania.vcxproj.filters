@@ -32,6 +32,12 @@
     <Filter Include="Game\GameScene">
       <UniqueIdentifier>{b81b9c89-8e78-4ed9-abd3-e0224bea4663}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\Animations">
+      <UniqueIdentifier>{5f35254f-5456-4a5e-b513-754964e06b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\Portals">
+      <UniqueIdentifier>{872348c9-f016-442d-b23b-a912aa20d5a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -49,12 +55,6 @@
     <ClCompile Include="dsutil.cpp">
       <Filter>FrameWork\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="GTexture.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="GSprite.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
     <ClCompile Include="GAudio.cpp">
       <Filter>FrameWork\Sound</Filter>
     </ClCompile>
@@ -63,9 +63,6 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>FrameWork\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>FrameWork</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects.cpp">
       <Filter>FrameWork\GameObjects</Filter>
@@ -78,12 +75,6 @@
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
       <Filter>Game\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>FrameWork\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="TileArea.cpp">
-      <Filter>FrameWork\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Game</Filter>
@@ -103,6 +94,30 @@
     <ClCompile Include="CustomKeyEvent.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="SwitchSceneEvent.cpp">
+      <Filter>Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TileArea.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="PortalLib.cpp">
+      <Filter>FrameWork\Portals</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>FrameWork\Portals</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>FrameWork\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="GSprite.cpp">
+      <Filter>FrameWork\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="GTexture.cpp">
+      <Filter>FrameWork\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Sections.cpp">
+      <Filter>Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -120,12 +135,6 @@
     <ClInclude Include="dxutil.h">
       <Filter>FrameWork\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="GTexture.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="GSprite.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
     <ClInclude Include="GAudio.h">
       <Filter>FrameWork\Sound</Filter>
     </ClInclude>
@@ -134,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>FrameWork\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>FrameWork</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects.h">
       <Filter>FrameWork\GameObjects</Filter>
@@ -149,12 +155,6 @@
     </ClInclude>
     <ClInclude Include="IntroScene.h">
       <Filter>Game\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>FrameWork\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="TileArea.h">
-      <Filter>FrameWork\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>Game</Filter>
@@ -188,6 +188,30 @@
     </ClInclude>
     <ClInclude Include="CustomKeyEvent.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchSceneEvent.h">
+      <Filter>Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TileArea.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="PortalLib.h">
+      <Filter>FrameWork\Portals</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>FrameWork\Portals</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>FrameWork\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="GSprite.h">
+      <Filter>FrameWork\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="GTexture.h">
+      <Filter>FrameWork\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Sections.h">
+      <Filter>Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

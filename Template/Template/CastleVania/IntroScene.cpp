@@ -7,6 +7,7 @@
 #include <time.h>  
 //#include "SwitchSceneEvent.h"
 #include "Game.h"
+#include "GameManager.h"
 //#include "GameGlobal.h"
 
 #define SCENE_SECTION_UNKNOWN -1
@@ -136,9 +137,9 @@ void CIntroScene::Load()
 	isFilmFinished = false;
 	isIntroFinished = false;
 	isLeftFinished = false;
-	//CGameGlobal::GetInstance()->subLeft();
-	//DebugOut(L"\n left = %d", CGameGlobal::GetInstance()->getLeft());
-	/*switch (CGameGlobal::GetInstance()->getLeft())
+	CGameManager::GetInstance()->subLeft();
+	DebugOut(L"\n left = %d", CGameManager::GetInstance()->getLeft());
+	switch (CGameManager::GetInstance()->getLeft())
 	{
 	case 1:
 		state = ID_STATE_LEFT1;
@@ -154,7 +155,7 @@ void CIntroScene::Load()
 
 	default:
 		break;
-	}*/
+	}
 }
 void CIntroScene::Update(DWORD dt)
 {
@@ -363,8 +364,8 @@ void CIntroScene::_ParseSection_OBJECT_ANIMATIONS(string line)
 //Reset Game
 void CIntroScene::pressContinue()
 {
-	//CGameGlobal::GetInstance()->resetGame();
-	//CGameGlobal::GetInstance()->subLeft();
+	//CGameManager::GetInstance()->resetGame();
+	//CGameManager::GetInstance()->subLeft();
 
 	setState(ID_STATE_SOPHIADOWNGROUND);
 	animationHandlers[state]->currentFrameIndex = animationHandlers[state]->animation->GetNumberOfFrames() - 1;
@@ -378,9 +379,9 @@ void CIntroScene::pressContinue()
 
 void CIntroScene::pressEnd()
 {
-	//CGameGlobal::GetInstance()->resetGame();
-	/*CGameEvent* event = new SwitchSceneEvent(ID_SCENE_INTRO);
-	CGame::AddGameEvent(event);*/
+	//CGameManager::GetInstance()->resetGame();
+	//CGameEvent* event = new SwitchSceneEvent(ID_SCENE_INTRO);
+	//CGame::AddGameEvent(event);
 	isTitleFinished = false;
 	isFilmFinished = false;
 	isIntroFinished = false;

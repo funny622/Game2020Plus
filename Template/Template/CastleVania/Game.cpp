@@ -248,8 +248,8 @@ void CGame::_ParseSection_SCENES(string line)
 
 	LPSCENE scene = NULL;
 
-	//if (id == ID_SCENE_SIDEVIEW || id == ID_SCENE_OVERHEAD)
-	//	scene = new GameScene(id, path);
+	if (id == ID_SCENE_SIDEVIEW || id == ID_SCENE_OVERHEAD)
+		scene = new GameScene(id, path);
 
 	if (id == ID_SCENE_INTRO)
 		scene = new CIntroScene(id, path);
