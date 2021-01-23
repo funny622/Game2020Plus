@@ -5,6 +5,9 @@
 #include "Portal.h"
 #include "PortalLib.h"
 #include "Sections.h"
+
+#include "GameObjectFactory.h"
+
 using namespace std;
 
 GameScene::GameScene(int id, LPCWSTR filePath, int startupSectionId) : SceneMain(id, filePath)

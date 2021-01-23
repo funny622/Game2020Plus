@@ -4,6 +4,7 @@
 #include "GTexture.h"
 #include "GameObjects.h"
 #include "Portal.h"
+#include "GridObjects.h"
 
 class CSection
 {
@@ -21,6 +22,11 @@ public:
 	int getBgWidth() { return bgWidth; };
 	int getBgHeight() { return bgHeight; };
 	void Update(DWORD dt);
+
+	CGridObjects* gridObjects = nullptr;
+
+	/*void CSection::addObject(LPGAMEOBJECT obj);*/
+	void addObject(LPGAMEOBJECT obj);
 
 	LPPORTAL findScenePortal(int port);
 };

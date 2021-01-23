@@ -118,6 +118,9 @@
     <ClCompile Include="Sections.cpp">
       <Filter>Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp" />
+    <ClCompile Include="GridObjects.cpp" />
+    <ClCompile Include="GameObjectBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -213,5 +216,8 @@
     <ClInclude Include="Sections.h">
       <Filter>Game\GameScene</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GridObjects.h" />
+    <ClInclude Include="GameObjectBehaviour.h" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include <stdlib.h>    
 #include <time.h>  
 
+
 CSection::CSection(int bgTextureId, int fgTextureId)
 {
 	this->backgroundTextureId = bgTextureId;
@@ -18,6 +19,8 @@ CSection::CSection(int bgTextureId, int fgTextureId)
 
 	bgWidth = surfaceDesc.Width;
 	bgHeight = surfaceDesc.Height;
+
+	gridObjects = new CGridObjects(bgWidth, bgHeight);
 }
 
 void CSection::Update(DWORD dt)
@@ -38,3 +41,12 @@ LPPORTAL CSection::findScenePortal(int port)
 {
 	return nullptr;
 }
+
+void CSection::addObject(LPGAMEOBJECT obj)
+{
+	if (!obj)
+		return;
+
+	gridObjects->Add(obj);
+}
+

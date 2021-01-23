@@ -92,11 +92,14 @@
     <ClCompile Include="CustomKeyEvent.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameObjectBehaviour.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjects.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GAudio.cpp" />
     <ClCompile Include="GCamera.cpp" />
     <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="GridObjects.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="PortalLib.cpp" />
@@ -121,6 +124,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameObjectBehaviour.h" />
+    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjects.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameState.h" />
@@ -128,6 +133,7 @@
     <ClInclude Include="GCamera.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="GridObjects.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="OverheadConst.h" />
     <ClInclude Include="Portal.h" />
