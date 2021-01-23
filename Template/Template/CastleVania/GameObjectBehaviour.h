@@ -56,15 +56,6 @@ public:
 	static void TransformBoundBox(float offsetX, float offsetY, float width, float height, float spriteWidth, float spriteHeight, float& newOffsetX, float& newOffsetY, float& newWidth, float& newHeight, bool flipX, bool flipY);
 
 	/// <summary>
-	/// Create an explosion object and add it to the current section in the next frame
-	/// </summary>
-	/// <param name="explosionClassId"></param>
-	/// <param name="x"></param>
-	/// <param name="y"></param>
-	/// <param name="sectionId"></param>
-	static void CreateExplosion(int explosionClassId, int x, int y, int sectionId);
-
-	/// <summary>
 	/// Destroy the current object and create an explosion. (x,y) is the top-left corner position of game object
 	/// </summary>
 	/// <param name="obj"></param>
@@ -80,20 +71,8 @@ public:
 	/// <param name="explosionClassId"></param>
 	static void ExplodeAtCenter(LPGAMEOBJECT obj, int explosionClassId);
 
-	/// <summary>
-	/// Create a new game object and add it to its section in the next frame
-	/// </summary>
-	/// <param name="obj"></param>
-	static void CreateObject(LPGAMEOBJECT obj);
-
 	static void CreateObjectAtCenterOfAnother(LPGAMEOBJECT newObj, LPGAMEOBJECT fromObj);
 	static void CreateObjectAtCenterOfBoss(LPGAMEOBJECT newObj, LPGAMEOBJECT fromObj);
-	/// <summary>
-	/// Remove a game object from its section in the next frame.
-	/// Deallocate the object memory if isDestroyAfterRemove is true
-	/// </summary>
-	/// <param name="obj"></param>
-	static void RemoveObject(LPGAMEOBJECT obj, bool isDestroyAfterRemove = true);
 
 	/// <summary>
 	/// Penetrable: specify if the bullet should explode when colliding with enemy

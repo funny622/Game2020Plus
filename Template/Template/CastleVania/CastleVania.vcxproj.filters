@@ -38,6 +38,9 @@
     <Filter Include="FrameWork\Portals">
       <UniqueIdentifier>{872348c9-f016-442d-b23b-a912aa20d5a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\GameObjects\ObjectManager">
+      <UniqueIdentifier>{dbba97c9-cd96-4a4e-b2e6-3fe6d44e482c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -118,9 +121,15 @@
     <ClCompile Include="Sections.cpp">
       <Filter>Game\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectFactory.cpp" />
-    <ClCompile Include="GridObjects.cpp" />
-    <ClCompile Include="GameObjectBehaviour.cpp" />
+    <ClCompile Include="GridObjects.cpp">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectBehaviour.cpp">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -216,8 +225,14 @@
     <ClInclude Include="Sections.h">
       <Filter>Game\GameScene</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectFactory.h" />
-    <ClInclude Include="GridObjects.h" />
-    <ClInclude Include="GameObjectBehaviour.h" />
+    <ClInclude Include="GridObjects.h">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectBehaviour.h">
+      <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

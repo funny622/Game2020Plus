@@ -146,10 +146,6 @@ void CGameObjectBehaviour::Explode(LPGAMEOBJECT obj, int explosionClassId, int x
 {
 	if (!obj)
 		return;
-
-	RemoveObject(obj);
-
-	CreateExplosion(explosionClassId, x, y, obj->currentSectionId);
 }
 
 //void CGameObjectBehaviour::ExplodeAtCenter(LPGAMEOBJECT obj, int explosionClassId)
@@ -184,8 +180,6 @@ void CGameObjectBehaviour::CreateObjectAtCenterOfAnother(LPGAMEOBJECT newObj, LP
 
 	SetBoundingBoxCenter(newObj, centerX, centerY);
 	newObj->currentSectionId = fromObj->currentSectionId;
-
-	CreateObject(newObj);
 }
 
 void CGameObjectBehaviour::CreateObjectAtCenterOfBoss(LPGAMEOBJECT newObj, LPGAMEOBJECT fromObj)
@@ -201,8 +195,6 @@ void CGameObjectBehaviour::CreateObjectAtCenterOfBoss(LPGAMEOBJECT newObj, LPGAM
 
 	SetBoundingBoxCenter(newObj, centerX, centerY);
 	newObj->currentSectionId = fromObj->currentSectionId;
-
-	CreateObject(newObj);
 }
 
 //void CGameObjectBehaviour::RemoveObject(LPGAMEOBJECT obj, bool isDestroyAfterRemove)
