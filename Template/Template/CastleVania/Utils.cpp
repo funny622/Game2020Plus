@@ -1,6 +1,7 @@
 #include "Utils.h"
 #include "Game.h"
 #include "GameObjects.h"
+#include "CollisionSolver.h"
 
 void DebugOut(wchar_t* fmt, ...)
 {
@@ -99,9 +100,30 @@ vector<CCustomKeyEvent*> NewKeyEvents()
 	return game->CustomKeyEvents;
 }
 
-bool checkObjInCamera(CGameObject* obj, float extendOffset)
+bool checkObjInCamera(GameObject* obj, float extendOffset)
 {
-	return true;
+	if (obj->classId == CLASS_SOPHIA || obj->classId == CLASS_JASONSIDEVIEW)
+		return true; // Sanh Fix bug section switch
+
+	//Point A is point left top 
+	//Point B is point right bottom
+	float Ax, Bx, Ay, By;
+	CGame::GetInstance()->GetCamPos(Ax, Ay);
+
+	Bx = Ax + CGame::GetInstance()->GetScreenWidth();
+	By = Ay + CGame::GetInstance()->GetScreenHeight();
+
+	// CuteTN Note: screen offset here
+	Ax -= extendOffset;
+	Ay -= extendOffset;
+	Bx += extendOffset;
+	By += extendOffset;
+
+
+	float oL, oR, oT, oB;
+	float tL, tT, tR, tB;
+	obj->GetBoundingBox(oL, oT, oR, oB);
+	return CCollisionSolver::IsOverlapped(Ax, Ay, Bx, By, oL, oT, oR, oB, tL, tT, tR, tB);
 }
 
 float RandomFloat(float a, float b)

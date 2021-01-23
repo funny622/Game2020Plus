@@ -130,6 +130,9 @@
     <ClCompile Include="GameObjectBehaviour.cpp">
       <Filter>FrameWork\GameObjects\ObjectManager</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionSolver.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="GameObjectBehaviour.h">
       <Filter>FrameWork\GameObjects\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSolver.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

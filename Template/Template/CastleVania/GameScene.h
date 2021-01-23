@@ -23,8 +23,16 @@ protected:
 public:
 	GameScene(int id, LPCWSTR filePath, int startupSection = -1);
 
+	void InitSaveGameSideView();
+	void InitSaveGameOverhead();
+
 	unordered_map<int, LPSECTION> Sections;
 	int CurrentSectionId;
+	int NextSectionId;
+	LPPORTAL fromPortal;
+	LPPORTAL toPortal;
+	float offset_x_SectionSwitch;
+	float offset_y_SectionSwitch;
 
 	virtual void Load();
 	virtual void Update(DWORD dt);
@@ -36,6 +44,18 @@ public:
 
 	void SetPlayer(LPGAMEOBJECT newPlayer) { player = newPlayer; }
 	LPGAMEOBJECT GetPlayer() { return player; } 
+
+	float camBoxLeft, camBoxRight, camBoxTop, camBoxBottom;
+	void init_camBox();
+	void update_camBox();
+
+	LPSECTION GetCurrentSection() { return Sections[CurrentSectionId]; }
+	bool isSectionSwitch();
+
+	void CreatePosCameraFollowPlayer(float& cx, float& cy);
+	void MoveCameraBeforeSwitchSection(float& cx, float& cy);
+	void PreventCameraOverBoundingBox(float& cx, float& cy);
+	void ResetGameStateAfterSwichtSection();
 
 	~GameScene();
 };

@@ -89,6 +89,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatableObject.cpp" />
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="CollisionSolver.cpp" />
     <ClCompile Include="CustomKeyEvent.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -120,6 +121,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatableObject.h" />
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="CollisionSolver.h" />
     <ClInclude Include="CustomKeyEvent.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEvent.h" />

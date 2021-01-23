@@ -10,9 +10,11 @@
 #include "SceneMain.h"
 #include "CustomKeyEvent.h"
 #include "Utils.h"
+#include "GameState.h"
 //#include "GameEvent.h"
 #include <iostream>
 #include <fstream>
+
 
 #define DIRECTINPUT_VERSION 0x0800
 #define ID_SCENE_INTRO 1
@@ -30,7 +32,7 @@ class GameObject;
 
 class CGame
 {
-	static int state;
+	static GameState state;
 
 	static CGame* __instance;
 	HWND hWnd;									// Window handle
@@ -99,8 +101,8 @@ public:
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 	//void CGame::AddGameEvent(LPGAME_EVENT gameEvent);
 
-	static int GetState() { return state; };
-	static void SetState(int newState);
+	static GameState GetState() { return state; };
+	static void SetState(GameState newState);
 
 	HWND getCurrentHWND();
 	static CGame* GetInstance();

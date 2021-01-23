@@ -365,7 +365,7 @@ void CIntroScene::_ParseSection_OBJECT_ANIMATIONS(string line)
 void CIntroScene::pressContinue()
 {
 	//CGameManager::GetInstance()->resetGame();
-	//CGameManager::GetInstance()->subLeft();
+	CGameManager::GetInstance()->subLeft();
 
 	setState(ID_STATE_SOPHIADOWNGROUND);
 	animationHandlers[state]->currentFrameIndex = animationHandlers[state]->animation->GetNumberOfFrames() - 1;

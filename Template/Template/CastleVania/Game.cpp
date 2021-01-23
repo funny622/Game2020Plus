@@ -5,6 +5,7 @@
 #include <math.h> 
 #include <time.h>
 #include <vector>
+#include "GameState.h"
 
 //#include "SoundManager.h"
 
@@ -12,7 +13,7 @@
 
 CGame* CGame::__instance = nullptr;
 
-int CGame::state = 1;
+GameState CGame::state = GameState::PLAY_SIDEVIEW_SOPHIA;
 D3DCOLOR CGame::BackgroundColor = D3DCOLOR_XRGB(255, 255, 255);
 
 
@@ -211,8 +212,43 @@ GameObject* CGame::GetCurrentPlayer()
 	return nullptr;
 }
 
-void CGame::SetState(int newState)
+void CGame::SetState(GameState newState)
 {
+	if (newState == GameState::PLAY_SIDEVIEW_JASON) DebugOut(L"\nSTATE JASON");
+	if (newState == GameState::PLAY_SIDEVIEW_SOPHIA) DebugOut(L"\nSTATE SOPHIA");
+	if (newState == GameState::PLAY_OVERHEAD) DebugOut(L"\nOVERHEAD");
+	if (newState == GameState::SECTION_SWITCH_LEFT) DebugOut(L"\nSTATE SOPHIA LEFT");
+	if (newState == GameState::SECTION_SWITCH_RIGHT) DebugOut(L"\nSTATE SOPHIA RIGHT");
+	if (newState == GameState::SECTION_SWITCH_LEFT_JASON) DebugOut(L"\nSTATE JASON LEFT");
+	if (newState == GameState::SECTION_SWITCH_RIGHT_JASON) DebugOut(L"\nSTATE JASON RIGHT");
+	if (newState == GameState::SECTION_SWITCH_OVERHEAD_LEFT) DebugOut(L"\nSTATE OVERHEAD LEFT");
+	if (newState == GameState::SECTION_SWITCH_OVERHEAD_RIGHT) DebugOut(L"\nSTATE OVERHEAD RIGHT");
+	if (newState == GameState::SECTION_SWITCH_OVERHEAD_UP) DebugOut(L"\nSTATE OVERHEAD UP");
+	if (newState == GameState::SECTION_SWITCH_OVERHEAD_DOWN) DebugOut(L"\nSTATE OVERHEAD DOWN");
+
+	if (newState == CGame::state)
+		return;
+
+	// CuteTN to do: prepare for new game state here
+	//SANH-SECTION 
+	if (newState == GameState::PLAY_SIDEVIEW_JASON && CGame::GetInstance()->GetCurrentPlayer()->classId != CLASS_JASONSIDEVIEW)
+	{
+		// add Jason to current section
+		auto scene = dynamic_cast<LPGAMESCENE>(CGame::GetInstance()->GetCurrentScene());
+
+		if (scene != nullptr)
+		{
+		}
+	}
+
+	// CuteTN to do: prepare for new game state here
+	//SANH-SECTION 
+	if (newState == GameState::PLAY_OVERHEAD)
+	{
+		// add Jason to current section
+		auto scene = dynamic_cast<LPGAMESCENE>(CGame::GetInstance()->GetCurrentScene());
+	}
+
 	state = newState;
 }
 

@@ -5,6 +5,8 @@
 #include <windows.h>
 #include "Timer.h"
 #include <string>
+#include "GameObjects.h"
+#include "Animations.h"
 using namespace std;
 
 #define MAX_HEALTH_SOPHIA 80
@@ -48,6 +50,29 @@ private:
 	const int BOSS_EFFECT_DURATION = 2000;
 	const int BOSS_EFFECT_FADE_IN_DURATION = 500;
 	int left = 3;
+	int flagPlayer = 1; // 1: Sophia 2:Jason SideView 3:Jason OverHead
+	bool Saved = false;
+	int healthSophia;
+	int healthJason;
+
+	void SupportRenderHeath(int health);
+	int SupportGetIDNumber(int number);
+	void SupportAnalysNumber(int number, int& first, int& second);
+
+	LPTIMER effectBossFlashingTimer;
+	LPTIMER effectBossFadeInTimer;
+
+	CObjectAnimationHanlders WeaponMenu;
+
+	CObjectAnimationHanlders EffectFaded;
+	CObjectAnimationHanlders EffectFadedIn;
+	CObjectAnimationHanlders EffectFadedOut;
+
+	CObjectAnimationHanlders SelectedLeft;
+	CObjectAnimationHanlders SelectedRight;
+
+	bool isWeaponMenuActive = false;
+	int idSelectedItem = 1;
 
 public:
 	static CGameManager* GetInstance();
@@ -55,7 +80,39 @@ public:
 	int getLeft() { return this->left; }
 	void subLeft();
 
+	//event method
+	void initEffectFaded();
+
 	virtual void HandleTimerTick(LPTIMER sender);
+
+	//Effect
+	bool isEffectFaded = false;
+	bool isEffectBoss = false;
+	bool isEffectBossFadeIn = false;
+
+	int getPlayer() { return this->flagPlayer; }
+
+	void resetHealth();
+
+	//Save game
+	bool isOverheadtoSideView = false;
+	bool isSaved() { return this->Saved; }
+
+	void Update(DWORD dt);
+	void UpdateEffect(DWORD dt);
+
+	void RenderHealth();
+	void RenderHealthGun();
+	void RenderWeapon();
+	void RenderEffect();
+
+	TypeWeapons selectedWeapon = TypeWeapons::MultiwarheadMissile;
+	void OpenMenuWeapon();
+	void CloseMenuWeapon();
+	bool isMenuWeaponOpen() { return this->isWeaponMenuActive; }
+
+	void NextSelectedItem();
+	void BackSelectedItem();
 
 };
 

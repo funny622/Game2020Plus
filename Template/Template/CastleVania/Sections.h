@@ -23,6 +23,9 @@ public:
 	int getBgHeight() { return bgHeight; };
 	void Update(DWORD dt);
 
+	void Render(float offset_x = 0, float offset_y = 0);
+	void RenderTexture(int textureId, float offset_x = 0, float offset_y = 0);
+
 	CGridObjects* gridObjects = nullptr;
 
 	/*void CSection::addObject(LPGAMEOBJECT obj);*/

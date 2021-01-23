@@ -19,7 +19,7 @@
 
 using namespace std;
 
-class CGameObject;
+class GameObject;
 
 void DebugOut(wchar_t* fmt, ...);
 float RandomFloat(float a, float b);
@@ -37,6 +37,6 @@ int IsKeyDown(int KeyCode);
 std::vector<CCustomKeyEvent*> NewKeyEvents();
 
 const int SCREEN_EXTEND_OFFSET_DEFAULT = 4;
-bool checkObjInCamera(CGameObject* obj, float extendOffset = SCREEN_EXTEND_OFFSET_DEFAULT);
+bool checkObjInCamera(GameObject* obj, float extendOffset = SCREEN_EXTEND_OFFSET_DEFAULT);
 
 typedef tuple<int, int, int> Color;
